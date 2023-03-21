@@ -7,20 +7,30 @@ const Auth = ({ isLogin }) => {
   const [authData, setAuthData] = useState({ username: "", email: "", password: "" });
   const history = useNavigate();
 
-const authUser = async () => {
-  if (!authData.username || !authData.password || (!isLogin && !authData.email)) {
-    console.error("Please fill in all the fields.");
-    return;
-  }
-
-  try {
-    const response = await axios.post(`http://0.0.0.0:5001/${isLogin ? 'login' : 'register'}`, authData);
-    localStorage.setItem('user_id', response.data.user_id);
-    history('/todos');
-  } catch (error) {
-    console.error(`${isLogin ? 'Login' : 'Registration'} error:`, error.response?.data?.message || error.message);
-  }
-};
+  const authUser = async () => {
+    if (!authData.username || !authData.password || (!isLogin && !authData.email)) {
+      console.error("Please fill in all the fields.");
+      return;
+    }
+  
+    const payload = {
+      username: authData.username,
+      password: authData.password,
+    };
+  
+    if (!isLogin) {
+      payload.email = authData.email;
+    }
+  
+    try {
+      const response = await axios.post(`http://0.0.0.0:5001/${isLogin ? 'login' : 'register'}`, payload);
+      localStorage.setItem('user_id', response.data.user_id);
+      history('/todos');
+    } catch (error) {
+      console.error(`${isLogin ? 'Login' : 'Registration'} error:`, error.response?.data?.message || error.message);
+    }
+  };
+  
 
   return (
     <div className="auth-form mb-5">

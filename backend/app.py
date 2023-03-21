@@ -44,13 +44,14 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = users_collection.find_one({'email': data['email']})
+    user = users_collection.find_one({'username': data['username']})
     if not user:
-        return jsonify({'message': 'Email not found.'}), 401
+        return jsonify({'message': 'Username not found.'}), 401
     if not bcrypt.check_password_hash(user['password'], data['password']):
-        return jsonify({'message': 'Incorrect email or password.'}), 401
+        return jsonify({'message': 'Incorrect username or password.'}), 401
     else:
         return jsonify({'user_id': str(user['_id'])})
+
 
 
 @app.route('/users', methods=['GET'])
