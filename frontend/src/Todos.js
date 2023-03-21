@@ -22,7 +22,7 @@ function Todos() {
     const newTodo = {
       title: inputValue,
       completed: false,
-      user_id: userId, // Добавьте user_id в объект newTodo
+      user_id: userId,
     };
     await axios.post(`http://0.0.0.0:5001/todos`, newTodo);
     setInputValue('');
