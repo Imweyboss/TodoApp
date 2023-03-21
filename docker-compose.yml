@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  web:
+  backend:
     build: .
     ports:
       - "5001:5001"
@@ -24,11 +24,11 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./frontend:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=development
-      - REACT_APP_API_URL=http://web:5001
+      - REACT_APP_API_URL=http://backend:5001
     stdin_open: true
     tty: true
 

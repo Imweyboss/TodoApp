@@ -12,7 +12,7 @@ function Todos() {
 
   const loginUser = async (username, password) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5001/login', {
+      const response = await axios.post('http://backend:5001/login', {
         username: username,
         password: password,
       });
@@ -28,7 +28,7 @@ function Todos() {
 
   const fetchTodos = async () => {
     const userId = localStorage.getItem('user_id');
-    const response = await axios.get(`http://127.0.0.1:5001/todos?user_id=${userId}`);
+    const response = await axios.get(`http://backend:5001/todos?user_id=${userId}`);
     setTodos(response.data);
   };
 
@@ -40,19 +40,19 @@ function Todos() {
       completed: false,
       user_id: userId,
     };
-    await axios.post(`http://127.0.0.1:5001/todos`, newTodo);
+    await axios.post(`http://backend:5001/todos`, newTodo);
     setInputValue('');
     fetchTodos();
   }
 };
 
   const updateTodo = async (id, completed) => {
-    await axios.put(`http://127.0.0.1:5001/todos/${id}`, { completed: !completed });
+    await axios.put(`http://backend:5001/todos/${id}`, { completed: !completed });
     fetchTodos();
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`http://127.0.0.1:5001/todos/${id}`);
+    await axios.delete(`http://backend:5001/todos/${id}`);
     fetchTodos();
   };
 

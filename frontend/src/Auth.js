@@ -23,7 +23,7 @@ const Auth = ({ isLogin }) => {
     }
   
     try {
-      const response = await axios.post(`http://0.0.0.0:5001/${isLogin ? 'login' : 'register'}`, payload);
+      const response = await axios.post(`http://backend:5001/${isLogin ? 'login' : 'register'}`, payload);
       localStorage.setItem('user_id', response.data.user_id);
       history('/todos');
     } catch (error) {

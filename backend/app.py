@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-host = 'localhost'
+host = 'mongo'
 port = 27017
 username = os.environ['MONGO_USERNAME']
 password = os.environ['MONGO_PASSWORD']
