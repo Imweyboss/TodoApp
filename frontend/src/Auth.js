@@ -23,8 +23,8 @@ const Auth = ({ isLogin }) => {
     }
   
     try {
-      const response = await axios.post(`http://backend:5001/${isLogin ? 'login' : 'register'}`, payload);
-      localStorage.setItem('user_id', response.data.user_id);
+      const response = await axios.post(`/api/${isLogin ? 'login' : 'register'}`, payload);
+      localStorage.setItem('user_id', response.data._id);
       history('/todos');
     } catch (error) {
       console.error(`${isLogin ? 'Login' : 'Registration'} error:`, error.response?.data?.message || error.message);
