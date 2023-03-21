@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  backend:
+  web:
     build: .
     ports:
       - "5001:5001"
-    networks:
-      - app-network
     environment:
       MONGO_USERNAME: ${MONGO_USERNAME}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
     depends_on:
       - mongo
+    networks:
+      - app-network
 
   mongo:
     image: mongo:4.4
@@ -28,21 +28,19 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend:/frontend
+      - /frontend/node_modules
     environment:
       - NODE_ENV=development
-      - REACT_APP_API_URL=http://backend:5001
+      - REACT_APP_API_URL=http://web:5001
     stdin_open: true
     tty: true
     networks:
       - app-network
 
-networks:
-  app_network:
-    driver: bridge
-
 volumes:
   mongo_data:
 
+networks:
+  app-network:
 
