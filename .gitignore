@@ -109,3 +109,6 @@ venv.bak/
 
 # Vagrant
 .vagrant
+
+#modules
+node_modules/
